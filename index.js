@@ -13,7 +13,7 @@ const URI = `/webhook/${TOKEN}`
 const WEBHOOK_URL = SERVER_URL + URI
 
 const app = express();
-app.use(cors({origin: ['https://luxury-maamoul-41b2e8.netlify.app']}))
+app.use(cors({origin: ['https://luxury-maamoul-41b2e8.netlify.app', 'http://localhost:3000']}))
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json())
 app.set('view engine', 'ejs')
@@ -24,7 +24,7 @@ const init = async ()=> {
 }
 
 app.get('/', (req, res)=> {
-    res.render('index.ejs')
+    res.send('working')
 })
 
 app.post('/sendMessage', async(req,res)=> {
