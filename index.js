@@ -8,7 +8,7 @@ const TelegramBot = require('node-telegram-bot-api')
 
 
 const {TOKEN, SERVER_URL, chatId} = process.env
-const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
+const TELEGRAM_API = `https://api.telegram.org/bot${process.env.token}`
 const URI = `/webhook/${TOKEN}`
 const WEBHOOK_URL = SERVER_URL + URI
 
@@ -41,7 +41,7 @@ app.post('/sendMessage', async(req,res)=> {
     console.log(text)
     // console.log(incoming.name)
     await axios.post(`${TELEGRAM_API}/sendMessage`, {
-        chat_id : chatId,
+        chat_id : process.env.chatId,
         parse_mode: 'HTML',
         text: text.toString()
     })
