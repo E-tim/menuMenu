@@ -13,7 +13,7 @@ const URI = `/webhook/${TOKEN}`
 const WEBHOOK_URL = SERVER_URL + URI
 
 const app = express();
-app.use(cors({origin: ['http://localhost:3000', 'http://127.0.0.1:8888']}))
+app.use(cors({origin: ['https://luxury-maamoul-41b2e8.netlify.app/','https://luxury-maamoul-41b2e8.netlify.app/cart', 'http://localhost:3000','http://localhost:3000/cart', 'http://127.0.0.1:8888']}))
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json())
 app.set('view engine', 'ejs')
