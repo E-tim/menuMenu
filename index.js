@@ -14,12 +14,12 @@ const WEBHOOK_URL = SERVER_URL + URI
 
 const app = express();
 // app.use(cors({origin: ['https://luxury-maamoul-41b2e8.netlify.app', 'http://localhost:3000']}))
-const corsOptions ={
-    origin:'https://luxury-maamoul-41b2e8.netlify.app', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
+// const corsOptions ={
+//     origin:'https://luxury-maamoul-41b2e8.netlify.app', 
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
+app.use(cors());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json())
 app.set('view engine', 'ejs')
@@ -30,7 +30,7 @@ const init = async ()=> {
 }
 
 app.get('/', (req, res)=> {
-    res.send('working')
+    res.send('workinggg')
 })
 
 app.post('/sendMessage', async(req,res)=> {
