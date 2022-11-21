@@ -22,10 +22,10 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json())
 app.set('view engine', 'ejs')
 
-const init = async ()=> {
-    const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`)
-    console.log(res.data)
-}
+// const init = async ()=> {
+//     const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`)
+//     console.log(res.data)
+// }
 
 app.get('/', (req, res)=> {
     res.send('workinggg')
@@ -33,19 +33,19 @@ app.get('/', (req, res)=> {
 
 app.post('/sendMessage', async(req,res)=> {
     
-    // console.log(req.body.itemList)
+    console.log(req.body)
     // const text = req.body.name
     let incoming = req.body.itemList
+    let rNumber = req.body.roomOrTable_number
     let text = [];
     incoming.map(item => text.push(`${item.many} ${item.name} ` ) )
     console.log(text)
-    // console.log(incoming.name)
     await axios.post(`${TELEGRAM_API}/sendMessage`, {
         chat_id : process.env.chatId,
         parse_mode: 'HTML',
-        text: text.toString()
+        text: `RN ${rNumber} 📧 ` + text.toString()
     })
-    res.send('order recieved')
+    res.send('Order recieved')
    
 })
 
