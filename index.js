@@ -45,7 +45,7 @@ app.post('/sendMessage', async(req,res)=> {
         parse_mode: 'HTML',
         text: `RN ${rNumber} 📧 ` + text.toString()
     })
-    res.send('Order recieved')
+    res.send('Order has been sent')
    
 })
 
