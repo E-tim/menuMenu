@@ -3,7 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 const cors = require('cors')
-const TelegramBot = require('node-telegram-bot-api')
+const sanitiseHtml = require('sanitize-html')
 
 
 
@@ -37,13 +37,20 @@ app.post('/sendMessage', async(req,res)=> {
     // const text = req.body.name
     let incoming = req.body.itemList
     let rNumber = req.body.roomOrTable_number
+
+    // cleaning an input from html
+    const clean = sanitiseHtml(rNumber, {
+        allowedTags: [],
+        allowedAttributes: {}
+    })
+
     let text = [];
     incoming.map(item => text.push(`${item.many} ${item.name} ` ) )
     console.log(text)
     await axios.post(`${TELEGRAM_API}/sendMessage`, {
         chat_id : process.env.chatId,
         parse_mode: 'HTML',
-        text: `RN ${rNumber} 📧 ` + text.toString()
+        text: `RN ${clean} 📧 ` + text.toString()
     })
     res.send('Order has been sent')
    
