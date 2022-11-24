@@ -38,7 +38,7 @@ app.post('/sendMessage', async(req,res)=> {
     let incoming = req.body.itemList
     let rNumber = req.body.roomOrTable_number
 
-    // cleaning an input from html
+    // cleaning an input from front-end 
     const clean = sanitiseHtml(rNumber, {
         allowedTags: [],
         allowedAttributes: {}
@@ -50,7 +50,12 @@ app.post('/sendMessage', async(req,res)=> {
     await axios.post(`${TELEGRAM_API}/sendMessage`, {
         chat_id : process.env.chatId,
         parse_mode: 'HTML',
-        text: `RN ${clean} 📧 ` + text.toString()
+        text: `
+                <b>RN:</b>  ${clean} 📧 
+<b>Order: </b>  ${text.toString()}
+
+              `
+              
     })
     res.send('Order has been sent')
    
