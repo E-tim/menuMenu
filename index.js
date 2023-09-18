@@ -117,27 +117,24 @@ function cleanUp (req, res, next) {
     next();
 }
 
-// const start = async()=> {
+const start = async()=> {
 
-//     try {
+    try {
         
-//         const client = new MongoClient ('mongodb+srv://eesuola:timothy@cluster0.7b6p0.mongodb.net/tim?retryWrites=true&w=majority', { useNewUrlParser: true })
-//         await client.connect()
-//         db = client.db()
+        const client = new MongoClient ('mongodb+srv://eesuola:timothy@cluster0.7b6p0.mongodb.net/tim?retryWrites=true&w=majority', { useNewUrlParser: true })
+        await client.connect()
+        db = client.db()
 
-//         app.listen(process.env.PORT || 80, ()=> {
-//             console.log(`app is running on port, ${process.env.PORT || 80}`)
-//             // init()
-//         })
+        app.listen(process.env.PORT || 80, ()=> {
+            console.log(`app is running on port, ${process.env.PORT || 80}`)
+            // init()
+        })
 
-//     } catch (error) {
-//         console.log('unable to connect')
-//     }
-// }
-// start();
+    } catch (error) {
+        console.log('unable to connect')
+    }
+}
+start();
 
-app.listen(process.env.PORT || 80, ()=> {
-    console.log(`app is running on port, ${process.env.PORT || 80}`)
-    // init()
-})
+
 
