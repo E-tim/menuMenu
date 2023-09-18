@@ -14,10 +14,10 @@ const TelegramBot = require('node-telegram-bot-api');
 // const bodyParser = require('body-parser')
 
 
-const {TOKEN, SERVER_URL, chatId} = process.env
+const {TOKEN, chatId} = process.env
 const TELEGRAM_API = `https://api.telegram.org/bot${process.env.token}`
 const URI = `/webhook/${TOKEN}`
-const WEBHOOK_URL = SERVER_URL + URI
+// const WEBHOOK_URL = SERVER_URL + URI
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
