@@ -25,7 +25,7 @@ const WEBHOOK_URL = SERVER_URL + URI
 
 const app = express();
 var corsOptions = {
-    origin: ['http://localhost:3000', 'https://singular-twilight-6a7253.netlify.app'],
+    origin: ['http://localhost:3000', 'https://luxury-maamoul-41b2e8.netlify.app'],
     credentials: true,
 };
 app.use(cors(corsOptions));
@@ -86,16 +86,14 @@ app.post('/sendMessage', async(req,res)=> {
     })
 
     let text = [];
-    // incoming.map(item => text.push(`${item.many} ${item.name} ` ) )
-    incoming.map(item => text.push({qty: item.many, name: item.name}) )
-    const extractValues = text.map(obj => `${obj.qty} - ${obj.name} \n`)
+    incoming.map(item => text.push(`${item.many} ${item.name} ` ) )
     console.log(text)
     await axios.post(`${TELEGRAM_API}/sendMessage`, {
         chat_id : process.env.chatId,
         parse_mode: 'HTML',
         text: `
-                <b>RN: ${clean} 📧</b>   
-<i>Order: \n ${extractValues}</i>  
+                <b>RN:</b>  ${clean} 📧 
+<b>Order: </b>  ${text.toString()}
 
               `
               
@@ -135,6 +133,4 @@ const start = async()=> {
     }
 }
 start();
-
-
 
