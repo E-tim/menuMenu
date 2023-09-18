@@ -73,7 +73,7 @@ app.post('/sendMessage', async(req,res)=> {
 })
 
 
-const webhookURLs = `https://menu-menu.vercel.app/sendMessage/${TOKEN}`;
+const webhookURLs = `https://tim-menu.herokuapp.com/${TOKEN}`;
 bot.setWebHook(webhookURLs);
 
 app.listen(process.env.PORT || 80, ()=> {
