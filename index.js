@@ -73,8 +73,8 @@ app.post('/sendMessage', async(req,res)=> {
 })
 
 
-const webhookURLs = `https://tim-menu.herokuapp.com/${TOKEN}`;
-bot.setWebHook(webhookURLs);
+// const webhookURLs = `https://tim-menu.herokuapp.com/${TOKEN}`;
+// bot.setWebHook(webhookURLs);
 
 app.listen(process.env.PORT || 80, ()=> {
     console.log(`app is running on port, ${process.env.PORT || 80}`)
