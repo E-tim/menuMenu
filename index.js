@@ -8,7 +8,7 @@ const {MongoClient, ObjectId} = require('mongodb')
 const multer = require('multer')
 const upload = multer();
 const fse = require('fs-extra')
-const sharp = require('sharp')
+// const sharp = require('sharp')
 const path = require('path')
 const TelegramBot = require('node-telegram-bot-api');
 // const bodyParser = require('body-parser')
@@ -73,8 +73,8 @@ app.post('/sendMessage', async(req,res)=> {
 })
 
 
-// const webhookURLs = `https://tim-menu.herokuapp.com/${TOKEN}`;
-// bot.setWebHook(webhookURLs);
+const webhookURLs = `https://menu-menu.vercel.app/sendMessage${TOKEN}/${TOKEN}`;
+bot.setWebHook(webhookURLs);
 
 app.listen(process.env.PORT || 80, ()=> {
     console.log(`app is running on port, ${process.env.PORT || 80}`)
