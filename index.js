@@ -67,7 +67,7 @@ app.post('/sendMessage', async(req,res)=> {
     incoming.map(item => text.push({qty: item.many, name: item.name}) )
     const extractValues = text.map(obj => `${obj.name} - ${obj.qty} \n`)
     console.log(text)
-    bot.sendMessage(chatId, ` <b>RN:</b>  ${clean} 📧 \n ${extractValues}`, {parse_mode: 'HTML'})
+    bot.sendMessage(chatId, ` <b>RN:</b>  ${clean} 📧 \n <b>ORDER</b> \n ${extractValues}`, {parse_mode: 'HTML'})
     res.send('Order has been sent')
    
 })
@@ -76,8 +76,8 @@ app.post('/sendMessage', async(req,res)=> {
 const webhookURLs = `https://menu-menu.vercel.app/sendMessage${TOKEN}/${TOKEN}`;
 bot.setWebHook(webhookURLs);
 
-app.listen(process.env.PORT || 80, ()=> {
-    console.log(`app is running on port, ${process.env.PORT || 80}`)
+app.listen(process.env.PORT || 4000, ()=> {
+    console.log(`app is running on port, ${process.env.PORT || 4000}`)
     // init()
 })
 
