@@ -73,7 +73,7 @@ app.post('/sendMessage', async(req,res)=> {
 })
 
 
-const webhookURLs = `https://menumenu.onrender.com/sendMessage/${TOKEN}`;
+const webhookURLs = `https://menumenu.onrender.com/sendMessage/${token}`;
 bot.setWebHook(webhookURLs);
 
 app.listen(process.env.PORT || 4000, ()=> {
