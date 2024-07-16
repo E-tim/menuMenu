@@ -1,28 +1,22 @@
-require('dotenv').config()
-const express = require('express')
-const bodyParser = require('body-parser')
-const axios = require('axios')
-const cors = require('cors')
-const sanitiseHtml = require('sanitize-html')
-const {MongoClient, ObjectId} = require('mongodb')
-const multer = require('multer')
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const cors = require('cors');
+const sanitiseHtml = require('sanitize-html');
+const { MongoClient, ObjectId } = require('mongodb');
+const multer = require('multer');
 const upload = multer();
-const fse = require('fs-extra')
-// const sharp = require('sharp')
-const path = require('path')
+const fse = require('fs-extra');
+const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
-const { error } = require('console')
-// const bodyParser = require('body-parser')
 
-
-
-
-
-
-const {TOKEN, chatId} = process.env
-const TELEGRAM_API = `https://api.telegram.org/bot${process.env.token}`
-const URI = `/webhook/${TOKEN}`
-// const WEBHOOK_URL = SERVER_URL + URI
+const TOKEN = process.env.TOKEN; // Ensure TOKEN is correctly accessed
+const chatId = process.env.chatId; // Ensure chatId is correctly accessed
+const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`;
+const URI = `/webhook/${TOKEN}`;
+const SERVER_URL = 'https://menumenu.onrender.com'; // Your Render.com URL
+const WEBHOOK_URL = SERVER_URL + URI;
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
@@ -32,52 +26,46 @@ var corsOptions = {
     credentials: true,
 };
 app.use(cors(corsOptions));
-app.use(bodyParser.urlencoded({extended : true}));
-app.use(bodyParser.json())
-app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.set('view engine', 'ejs');
 
-// const init = async ()=> {
-//     const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`)
-//     console.log(res.data)
-// }
+app.get('/', (req, res) => {
+    res.send('workinggg');
+});
 
-app.get('/', (req, res)=> {
-    res.send('workinggg')
-})
+app.post('/sendMessage', async (req, res) => {
+    console.log(req.body);
+    let incoming = req.body.itemList;
+    let rNumber = req.body.roomOrTable_number;
 
-
-
-app.post('/sendMessage', async(req,res)=> {
-    
-    console.log(req.body)
-    // const text = req.body.name
-    let incoming = req.body.itemList
-    let rNumber = req.body.roomOrTable_number
-
-    // cleaning an input from front-end 
     const clean = sanitiseHtml(rNumber, {
         allowedTags: [],
         allowedAttributes: {}
-    })
+    });
 
     let text = [];
-    // incoming.map(item => text.push(`${item.many} ${item.name} ` ) )
-    incoming.map(item => text.push({qty: item.many, name: item.name}) )
-    const extractValues = text.map(obj => `${obj.name} - ${obj.qty} \n`)
-    console.log(text)
-    bot.sendMessage(chatId, ` <b>RN:</b>  ${clean} 📧 \n <b>ORDER</b> \n ${extractValues}`, {parse_mode: 'HTML'})
-    res.send('Order has been sent')
+    incoming.map(item => text.push({ qty: item.many, name: item.name }));
+    const extractValues = text.map(obj => `${obj.name} - ${obj.qty} \n`);
+    console.log(text);
+    bot.sendMessage(chatId, `<b>RN:</b> ${clean} 📧 \n<b>ORDER</b>\n${extractValues.join('')}`, { parse_mode: 'HTML' });
+    res.send('Order has been sent');
+});
 
-    
+const init = async () => {
+    try {
+        const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`);
+        console.log(res.data);
+    } catch (error) {
+        console.error('Error setting webhook:', error);
+    }
+};
 
-})
-
-
-// const webhookURLs = `https://menu-menu.vercel.app/sendMessage${TOKEN}/${TOKEN}`;
+// Uncomment and use this line to set the webhook
+// const webhookURLs = `https://menumenu.onrender.com/sendMessage/${TOKEN}`;
 // bot.setWebHook(webhookURLs);
 
-app.listen(process.env.PORT || 4000, ()=> {
-    console.log(`app is running on port, ${process.env.PORT || 4000}`)
-    // init()
-})
-
+app.listen(process.env.PORT || 4000, () => {
+    console.log(`app is running on port ${process.env.PORT || 4000}`);
+    init(); // Initialize webhook setting
+});
