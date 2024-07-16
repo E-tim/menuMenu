@@ -11,7 +11,12 @@ const fse = require('fs-extra')
 // const sharp = require('sharp')
 const path = require('path')
 const TelegramBot = require('node-telegram-bot-api');
+const { error } = require('console')
 // const bodyParser = require('body-parser')
+
+
+
+
 
 
 const {TOKEN, chatId} = process.env
@@ -42,13 +47,6 @@ app.get('/', (req, res)=> {
 
 
 
-
-
-
-
-
-
-
 app.post('/sendMessage', async(req,res)=> {
     
     console.log(req.body)
@@ -69,7 +67,9 @@ app.post('/sendMessage', async(req,res)=> {
     console.log(text)
     bot.sendMessage(chatId, ` <b>RN:</b>  ${clean} 📧 \n <b>ORDER</b> \n ${extractValues}`, {parse_mode: 'HTML'})
     res.send('Order has been sent')
-   
+
+    
+
 })
 
 
