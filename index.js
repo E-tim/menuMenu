@@ -73,8 +73,8 @@ app.post('/sendMessage', async(req,res)=> {
 })
 
 
-const webhookURLs = `https://menumenu.onrender.com/sendMessage/${token}`;
-bot.setWebHook(webhookURLs);
+// const webhookURLs = `https://menu-menu.vercel.app/sendMessage${TOKEN}/${TOKEN}`;
+// bot.setWebHook(webhookURLs);
 
 app.listen(process.env.PORT || 4000, ()=> {
     console.log(`app is running on port, ${process.env.PORT || 4000}`)
